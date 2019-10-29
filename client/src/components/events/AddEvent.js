@@ -17,7 +17,7 @@ class AddShenanigan extends Component {
     axios
       .post("http://localhost:5000/api/events", { eventName, description, category, location })
       .then(() => {
-        // this.props.getData(); <-------------- MOTHAFUCKA
+        this.props.getData(); 
         this.setState({ eventName: "", description: "", category: "", location: ""});
       })
       .catch(error => console.log(error));
