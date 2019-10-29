@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const User = require('./user-model');
+
 const shenaniganSchema = new Schema(
   {
     eventName: {
@@ -27,9 +29,7 @@ const shenaniganSchema = new Schema(
     image: {
       type: String
     },
-    // owner: {
-    //   type: [{type: Schema.Types.ObjectId.Id, ref = "User"}]
-    // },
+    owner: {type: Schema.Types.ObjectId, ref: 'User'},
     transportation: [{ type: Schema.Types.ObjectId, ref: "Transportation" }]
   },
 
