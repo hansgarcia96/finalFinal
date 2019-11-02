@@ -90,6 +90,6 @@ const index = require("./routes/index");
 
 app.use("/", index);
 app.use("/api", require("./routes/shenanigan-routes"));
-// app.use('/api', require('./routes/transportation-routes'));
+app.use('/api', require('./routes/transportation-routes'));
 
 module.exports = app;
