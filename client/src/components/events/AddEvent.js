@@ -12,12 +12,13 @@ class AddShenanigan extends Component {
     const eventName = this.state.eventName;
     const description = this.state.description;
     const category = this.state.category;
-    const location = this.state.location
+    const location = this.state.location;
+    const userID = this.props.theUser._id;
 
     axios
-      .post("http://localhost:5000/api/events", { eventName, description, category, location })
+      .post("http://localhost:5000/api/events", { eventName, description, category, location, userID })
       .then(() => {
-        this.props.getData(); 
+        this.props.getUser(); 
         this.setState({ eventName: "", description: "", category: "", location: ""});
       })
       .catch(error => console.log(error));
@@ -59,6 +60,7 @@ class AddShenanigan extends Component {
             value={this.state.location}
             onChange={e => this.handleChange(e)}
           />
+       
           
 
           <input type="submit" value="Submit" />

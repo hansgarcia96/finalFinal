@@ -4,6 +4,7 @@ const router = express.Router();
 
 const Shenanigan = require("../models/shenanigan-model");
 const Transportation = require("../models/transportation-model");
+const Comment = require("../models/comment-model");
 
 // POST NEW EVENT
 router.post("/events", (req, res, next) => {
@@ -14,7 +15,7 @@ router.post("/events", (req, res, next) => {
     category: req.body.category,
     location: req.body.location,
     // images: req.body.images, // is this where we use cloudinary????
-    // owner: req.user._id,
+    owner: req.user._id,
     // User: //
     transportation: []
   })
@@ -25,6 +26,14 @@ router.post("/events", (req, res, next) => {
       res.json(err);
     });
 });
+
+//CREATE A COMMENT
+
+// router.post('/comment', (req, res, next) => {
+//   Comment.create({
+//     owner: 
+//   })
+// })
 
 // GET ALL EVENTS
 router.get("/events", (req, res, next) => {
@@ -82,7 +91,7 @@ router.delete("/events/:id", (req, res, next) => {
   Shenanigan.findByIdAndRemove(req.params.id)
     .then(() => {
       res.json({
-        message: `Project with ${req.body.eventName} is removed successfully.`
+        message: `Event with ${req.body.eventName} is removed successfully.`
       });
     })
     .catch(err => {

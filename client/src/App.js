@@ -20,7 +20,7 @@ import Login from "./components/auth/Login";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { loggedInUser: null };
+    this.state = { loggedInUser: null};
     this.service = new AuthService();
   }
 
@@ -48,6 +48,7 @@ class App extends Component {
   };
 
   render() {
+    console.log(this.state);
     this.fetchUser();
     if (this.state.loggedInUser) {
       return (

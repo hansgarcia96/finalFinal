@@ -16,9 +16,8 @@ const transportationSchema = new Schema({
   },
   seats: {
     type: Number
-  }
-  // tasks: [{type: Schema.Types.ObjectId, ref: 'Task'}],
-  // owner will be added later on
+  },
+  owner: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
 const Transportation = mongoose.model("Transportation", transportationSchema);
