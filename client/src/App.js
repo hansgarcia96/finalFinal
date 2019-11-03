@@ -15,7 +15,17 @@ import EventList from "./components/events/EventList";
 // EVENT DETAILS
 import EventDetails from "./components/events/EventDetails";
 
+
 import Login from "./components/auth/Login";
+
+
+// import AddComment from "./components/comments/AddComment";
+
+
+// import AddVehicle from "./components/vehicles/AddVehicle";
+
+
+import VehicleList from "./components/vehicles/VehicleList"
 
 class App extends Component {
   constructor(props) {
@@ -57,6 +67,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/events" component={EventList} />
             <Route exact path="/events/:id" component={EventDetails} />
+            <Route exact path="/vehicles" component={VehicleList} />
           </Switch>
         </div>
       );
@@ -77,6 +88,7 @@ class App extends Component {
             />
             <Route exact path="/events" component={EventList} />
             <Route exact path="/events/:id" component={EventDetails} />
+
           </Switch>
         </div>
       );

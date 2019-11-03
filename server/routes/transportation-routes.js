@@ -13,7 +13,7 @@ router.post('/vehicles', (req, res, next)=>{
     model: req.body.model,
     year: req.body.year,
     // images:
-    seats: req.body.year,
+    seats: req.body.seats,
    
   })
     .then(response => {

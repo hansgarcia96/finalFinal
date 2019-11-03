@@ -9,11 +9,9 @@ const mongoose = require("mongoose");
 const logger = require("morgan");
 const path = require("path");
 const cors = require("cors");
-
 const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 const passport = require("passport");
-
-require("./configs/passport");
 
 // IF YOU STILL DIDN'T, GO TO 'configs/passport.js' AND UN-COMMENT OUT THE WHOLE FILE
 
@@ -67,9 +65,19 @@ app.use(
   })
 );
 
+require("./configs/passport");
+
 // USE passport.initialize() and passport.session() HERE:
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use((req, res, next) => {
+  console.log(
+    "this is the user info form within app.js ******************* ",
+    req.user
+  );
+  next();
+});
 
 // default value for title local
 app.locals.title = "Express - Generated with IronGenerator";
@@ -90,6 +98,6 @@ const index = require("./routes/index");
 
 app.use("/", index);
 app.use("/api", require("./routes/shenanigan-routes"));
-app.use('/api', require('./routes/transportation-routes'));
+app.use("/api", require("./routes/transportation-routes"));
 
 module.exports = app;

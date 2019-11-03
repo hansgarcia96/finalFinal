@@ -4,7 +4,7 @@ import axios from "axios";
 class AddShenanigan extends Component {
   constructor(props) {
     super(props);
-    this.state = { eventName: "", description: "", category: "", location: ""}; // MISSING date: "", image: "" 
+    this.state = { eventName: "", description: "", category: "", location: "" }; // MISSING date: "", image: ""
   }
 
   handleFormSubmit = event => {
@@ -13,13 +13,21 @@ class AddShenanigan extends Component {
     const description = this.state.description;
     const category = this.state.category;
     const location = this.state.location;
-    const userID = this.props.theUser._id;
 
     axios
-      .post("http://localhost:5000/api/events", { eventName, description, category, location, userID })
+      .post(
+        "http://localhost:5000/api/events",
+        { eventName, description, category, location },
+        { withCredentials: true }
+      )
       .then(() => {
-        this.props.getUser(); 
-        this.setState({ eventName: "", description: "", category: "", location: ""});
+        this.props.getEvent();
+        this.setState({
+          eventName: "",
+          description: "",
+          category: "",
+          location: ""
+        });
       })
       .catch(error => console.log(error));
   };
@@ -46,22 +54,20 @@ class AddShenanigan extends Component {
             value={this.state.description}
             onChange={e => this.handleChange(e)}
           />
-           <label>Category</label>
+          <label>Category</label>
           <input
             type="text"
             name="category"
             value={this.state.category}
             onChange={e => this.handleChange(e)}
           />
-             <label>Location</label>
+          <label>Location</label>
           <input
             type="text"
             name="location"
             value={this.state.location}
             onChange={e => this.handleChange(e)}
           />
-       
-          
 
           <input type="submit" value="Submit" />
         </form>

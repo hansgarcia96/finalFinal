@@ -9,7 +9,7 @@ const transportationSchema = new Schema({
     type: String
   },
   year: {
-    type: Number
+    type: String
   },
   images: {
     type: [String]
