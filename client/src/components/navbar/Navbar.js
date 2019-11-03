@@ -27,6 +27,7 @@ class Navbar extends Component {
           <ul>
             <li>Welcome, {this.state.loggedInUser.username}</li>
             <li><Link to='/events' style={{ textDecoration: 'none' }}>Events</Link></li>
+            <li><Link to='/vehicles' style={{ textDecoration: 'none'}}>Vehicles</Link></li>
             <li>
               <Link to='/'>
                 <button onClick={() => this.logoutUser()}>Logout</button>
