@@ -8,18 +8,17 @@ const Comment = require("../models/comment-model");
 
 // POST NEW EVENT
 router.post("/events", (req, res, next) => {
-  Shenanigan.create({
-    eventName: req.body.eventName,
-    // date: req.body.date,
-    description: req.body.description,
-    category: req.body.category,
-    location: req.body.location,
-    // images: req.body.images, // is this where we use cloudinary????
-    owner: req.user._id,
-    // User: //
-    transportation: []
-  })
+  console.log("this is the req body info for the event ======= ", req.body);
+  console.log("the current user info >>>>>>> ", req.user);
+
+  const myEventBody = req.body;
+  myEventBody.owner = req.user._id;
+
+  console.log("this is the event info ---- ", myEventBody);
+
+  Shenanigan.create(myEventBody)
     .then(response => {
+      console.log("this is the newly created event info ########## ", reponse);
       res.json(response);
     })
     .catch(err => {
@@ -28,15 +27,25 @@ router.post("/events", (req, res, next) => {
 });
 
 //CREATE A COMMENT
+router.post("/comments", (req, res, next) => {
+  const myCommentBody = req.body;
+  // myCommentBody.owner = req.user._id;
 
-// router.post('/comment', (req, res, next) => {
-//   Comment.create({
-//     owner: 
-//   })
-// })
+  // HOW TO GET EVENT ID???
+
+  Comment.create(myCommentBody)
+    .then(response => {
+      console.log("this is the newly created comment info ########## ", reponse);
+      res.json(response);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
 
 // GET ALL EVENTS
 router.get("/events", (req, res, next) => {
+  console.log("this is the session", req.session);
   Shenanigan.find()
     .populate("transportation")
     .then(allTheEvents => {

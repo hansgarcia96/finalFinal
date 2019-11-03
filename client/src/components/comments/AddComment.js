@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+// COMMENT LIST NEEDED????????????????????/
+
 class AddComment extends Component {
   constructor(props) {
     super(props);
@@ -9,14 +11,37 @@ class AddComment extends Component {
 
   handleFormSubmit = event => {
     console.log(event);
-    
+    const commentInfo = this.state.comment;
+    const commetOwner = this.state.owner;
+
+    axios
+      .post(
+        "http://localhost:5000/api/events/comments",
+        { commentInfo, commetOwner },
+        { withCredentials: true }
+      )
+      .then(() => {
+        this.props.getComment();
+        this.setState({
+          comment: "",
+          commentEvent: ""
+        });
+      })
+      .catch(error => console.log(error));
+  };
+
+  handleChange = event => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
   };
 
   render() {
     return (
-      <div>
-        <textarea onChange={this.handleFormSubmit} name="comment" value={this.state.comment} />
-      </div>
+      <textarea
+        name="commentInfo"
+        value={this.state.comment}
+        onChange={e => this.handleChange(e)}
+      />
     );
   }
 }

@@ -1,55 +1,67 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom"; // REDIRECT
-import EditEvent from './EditEvent'
+import EditEvent from "./EditEvent";
 
 class EventDetails extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { theEvent: {} };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.getSingleEvent();
   }
 
   getSingleEvent = () => {
     const { params } = this.props.match;
-    axios.get(`http://localhost:5000/api/events/${params.id}`)
-    .then( responseFromApi =>{
-      const theEvent = responseFromApi.data;
-      this.setState(theEvent);
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
-  }
+    axios
+      .get(`http://localhost:5000/api/events/${params.id}`)
+      .then(responseFromApi => {
+        const theEvent = responseFromApi.data;
+        this.setState(theEvent);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
 
   renderEditForm = () => {
-    if(!this.state.eventName){
+    if (!this.state.eventName) {
       this.getSingleEvent();
     } else {
-    //                                                    {...props} => so we can have 'this.props.history' in Edit.js
-    //                                                                                          ^
-    //                                                                                          |
-      return <EditEvent theEvent={this.state} getTheEvent={this.getSingleEvent} {...this.props} />
+      //                                                    {...props} => so we can have 'this.props.history' in Edit.js
+      //                                                                                          ^
+      //                                                                                          |
+      return (
+        <EditEvent
+          theEvent={this.state}
+          getTheEvent={this.getSingleEvent}
+          {...this.props}
+        />
+      );
     }
-  }
+  };
 
   // DELETE EVENT:
   deleteEvent = () => {
     const { params } = this.props.match;
-    axios.delete(`http://localhost:5000/api/events/${params.id}`)
-    .then( () =>{
-        this.props.history.push('/events'); // !!!         
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
-  }
+    axios
+      .delete(`http://localhost:5000/api/events/${params.id}`)
+      .then(() => {
+        this.props.history.push("/events"); // !!!
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   ownershipCheck = event => {
-    if (this.props.loggedInUser && event.owner === this.props.loggedInUser._id) {
+    if (
+      this.props.loggedInUser &&
+      event.owner === this.props.loggedInUser._id
+    ) {
       return (
         <div>
           <div>{this.renderEditForm()} </div>
@@ -62,16 +74,21 @@ class EventDetails extends Component {
   };
 
   renderEditForm = () => {
-    if(!this.state.eventName){
+    if (!this.state.eventName) {
       this.getSingleEvent();
     } else {
-    //                                                    {...props} => so we can have 'this.props.history' in Edit.js
-    //                                                                                          ^
-    //                                                                                          |
-      return <EditEvent theEvent={this.state} getTheEvent={this.getSingleEvent} {...this.props} />
-        
+      //                                                    {...props} => so we can have 'this.props.history' in Edit.js
+      //                                                                                          ^
+      //                                                                                          |
+      return (
+        <EditEvent
+          theEvent={this.state}
+          getTheEvent={this.getSingleEvent}
+          {...this.props}
+        />
+      );
     }
-  }
+  };
 
   render() {
     return (
@@ -82,7 +99,7 @@ class EventDetails extends Component {
         <p>{this.state.location}</p>
         <div>{this.renderEditForm()} </div>
         <button onClick={() => this.deleteEvent()}>Delete Event</button>
-        <br/>
+        <br />
         <div>{this.ownershipCheck(this.state)}</div>
         <Link to={"/events"}>Back to Events</Link>
       </div>
