@@ -12,7 +12,7 @@ router.post("/events", (req, res, next) => {
   console.log("the current user info >>>>>>> ", req.user);
 
   const myEventBody = req.body;
-  myEventBody.owner = req.user._id;
+  myEventBody.author = req.user._id;
 
   console.log("this is the event info ---- ", myEventBody);
 
@@ -45,6 +45,9 @@ router.post("/comments", (req, res, next) => {
 
 // GET ALL EVENTS
 router.get("/events", (req, res, next) => {
+
+
+
   console.log("this is the session", req.session);
   Shenanigan.find()
     .populate("transportation")

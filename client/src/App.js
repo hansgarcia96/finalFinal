@@ -2,35 +2,31 @@ import React, { Component } from "react";
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
 
+// USER
 import Signup from "./components/auth/Signup";
-
+import Login from "./components/auth/Login";
 import AuthService from "./components/auth/auth-service";
 
-// NAVBAR
+// NAV
 import Navbar from "./components/navbar/Navbar";
 
-// EVENT LIST
-import EventList from "./components/events/EventList";
+// LANDING
+import Landing from "./components/landing";
 
-// EVENT DETAILS
+// DASHBOARD
+import Dashboard from "./components/dashboard";
+
+// EVENT
+import EventList from "./components/events/EventList";
 import EventDetails from "./components/events/EventDetails";
 
-
-import Login from "./components/auth/Login";
-
-
-// import AddComment from "./components/comments/AddComment";
-
-
-// import AddVehicle from "./components/vehicles/AddVehicle";
-
-
-import VehicleList from "./components/vehicles/VehicleList"
+// VEHICLE
+import VehicleList from "./components/vehicles/VehicleList";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { loggedInUser: null};
+    this.state = { loggedInUser: null };
     this.service = new AuthService();
   }
 
@@ -63,8 +59,13 @@ class App extends Component {
     if (this.state.loggedInUser) {
       return (
         <div className="App">
-          <Navbar userInSession={this.state.loggedInUser} getTheUser={this.getTheUser}/>
+          <Navbar
+            userInSession={this.state.loggedInUser}
+            getTheUser={this.getTheUser}
+          />
+
           <Switch>
+            {/* <Route exact path="/landing" component={Landing} /> */}
             <Route exact path="/events" component={EventList} />
             <Route exact path="/events/:id" component={EventDetails} />
             <Route exact path="/vehicles" component={VehicleList} />
@@ -75,20 +76,30 @@ class App extends Component {
       return (
         <div className="App">
           <Navbar userInSession={this.state.loggedInUser} />
+       
+
           <Switch>
+
+            <Route
+              exact
+              path="/"
+              component={Landing} />}
+            />
+
             <Route
               exact
               path="/signup"
               render={() => <Signup getUser={this.getTheUser} />}
             />
+
             <Route
               exact
-              path="/"
+              path="/login"
               render={() => <Login getUser={this.getTheUser} />}
             />
+
             <Route exact path="/events" component={EventList} />
             <Route exact path="/events/:id" component={EventDetails} />
-
           </Switch>
         </div>
       );

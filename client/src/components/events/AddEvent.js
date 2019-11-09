@@ -38,6 +38,7 @@ class AddShenanigan extends Component {
   };
 
   render() {
+
     return (
       <div>
         <form onSubmit={this.handleFormSubmit}>
@@ -45,6 +46,7 @@ class AddShenanigan extends Component {
           <input
             type="text"
             name="eventName"
+            placeholder="Your Event's Name"
             value={this.state.eventName}
             onChange={e => this.handleChange(e)}
           />
