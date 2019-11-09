@@ -3,6 +3,9 @@ import axios from "axios";
 import { Link } from "react-router-dom"; // REDIRECT
 import EditEvent from "./EditEvent";
 
+/* import {GoogleMap, withScriptjs, withGoogleMap} from 'react-google-maps' */
+import TheMap from "../google/maps";
+
 class EventDetails extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +22,8 @@ class EventDetails extends Component {
       .get(`http://localhost:5000/api/events/${params.id}`)
       .then(responseFromApi => {
         const theEvent = responseFromApi.data;
+        console.log(`the event lat: ${theEvent.lat}`)
+        console.log(`the event lng: ${theEvent.lng}`)
         this.setState(theEvent);
       })
       .catch(err => {
@@ -97,10 +102,14 @@ class EventDetails extends Component {
         <p>{this.state.description}</p>
         <p>{this.state.category}</p>
         <p>{this.state.location}</p>
-        <div>{this.renderEditForm()} </div>
+        <p>{this.state.lat}</p>
+        <p>{this.state.lng}</p>
+        <TheMap theEvent={this.state}/>
+        <h1>Hello WOrld!!!!</h1>
+{/*         <div>{this.renderEditForm()} </div>
         <button onClick={() => this.deleteEvent()}>Delete Event</button>
         <br />
-        <div>{this.ownershipCheck(this.state)}</div>
+        <div>{this.ownershipCheck(this.state)}</div> */}
         <Link to={"/events"}>Back to Events</Link>
       </div>
     );

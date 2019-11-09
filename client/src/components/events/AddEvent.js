@@ -1,23 +1,27 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+import AutoComplete from "../google/autoComplete";
+
 class AddShenanigan extends Component {
   constructor(props) {
     super(props);
-    this.state = { eventName: "", description: "", category: "", location: "" }; // MISSING date: "", image: ""
+    this.state = { eventName: "", description: "", category: "", location: "", lng:"", lat:"" }; // MISSING date: "", image: ""
   }
 
   handleFormSubmit = event => {
+
     event.preventDefault();
-    const eventName = this.state.eventName;
-    const description = this.state.description;
-    const category = this.state.category;
-    const location = this.state.location;
+    const { eventName, description, category, location, lat, lng } = this.state;
+    // const eventName = this.state.eventName;
+    // const description = this.state.description;
+    // const category = this.state.category;
+    // const location = this.state.location;
 
     axios
       .post(
         "http://localhost:5000/api/events",
-        { eventName, description, category, location },
+         this.state,
         { withCredentials: true }
       )
       .then(() => {
@@ -26,11 +30,21 @@ class AddShenanigan extends Component {
           eventName: "",
           description: "",
           category: "",
-          location: ""
+          location: "",
+          lng:"",
+          lat:""
         });
       })
       .catch(error => console.log(error));
   };
+
+  setCoord = coordObj => {
+    console.log("coord in parent: ", coordObj)
+    this.setState({
+      lng: coordObj.lng,
+      lat: coordObj.lat
+    }, () => console.log("state in add event", this.state))
+  }
 
   handleChange = event => {
     const { name, value } = event.target;
@@ -73,6 +87,9 @@ class AddShenanigan extends Component {
 
           <input type="submit" value="Submit" />
         </form>
+
+        {<AutoComplete getCoord={ coordObj => this.setCoord(coordObj) } />}
+
       </div>
     );
   }

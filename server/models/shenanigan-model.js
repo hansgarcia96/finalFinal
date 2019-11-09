@@ -24,6 +24,12 @@ const shenaniganSchema = new Schema(
       type: String,
       required: true
     },
+    lat: {
+      type: Number
+    },
+    lng: {
+      type: Number
+    },
     image: {
       type: String
     },
