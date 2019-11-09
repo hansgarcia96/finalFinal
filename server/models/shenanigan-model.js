@@ -28,7 +28,7 @@ const shenaniganSchema = new Schema(
       type: String
     },
     members: [{ type: Schema.Types.ObjectId, ref: "User" }],
-    owner: { type: Schema.Types.ObjectId, ref: "User" },
+    author: { type: Schema.Types.ObjectId, ref: "User" },
     transportation: [{ type: Schema.Types.ObjectId, ref: "Transportation" }],
     comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }]
   },
